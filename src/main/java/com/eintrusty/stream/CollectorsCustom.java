@@ -1,4 +1,4 @@
-package com.eintrusty;
+package com.eintrusty.stream;
 
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
