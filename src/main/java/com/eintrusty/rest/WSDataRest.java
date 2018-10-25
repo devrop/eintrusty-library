@@ -6,9 +6,10 @@ import java.awt.*;
 public class WSDataRest {
 
 
-    public static DataRest getObjectFromWebservice(String url, DataRest sendObject, String httpMethod){
+    public static DataRest getObjectFromWebService(String url, DataRest sendObject, String httpMethod){
         DataRest response = new DataRest();
         HttpMethod method =  getHttpMethod(httpMethod);
+        HttpMethod method2 = HttpMethod.resolve(httpMethod.toUpperCase());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         RestTemplate restTemplate = new RestTemplate();
