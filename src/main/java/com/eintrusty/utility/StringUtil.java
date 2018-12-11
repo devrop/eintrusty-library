@@ -8,8 +8,11 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -114,6 +117,81 @@ public class StringUtil {
 
     }
 
+    public static String notNull(String s) {
+    	if(s !=null) {
+    		
+    		return s.trim();
+    	}
+    	return "";
+    	
+    }
+    
+    public static String aroundingPersen(String s) {
+    	if(s !=null) {
+    		
+    		return "%"+s.trim()+"%";
+    	}
+    	return "%%";
+    	
+    }
+    
+    public static String buildingBodyTokenUsernameAndRole(String username,String regex1,List<String> roles, String regex2) {
+    	try {
+    		StringBuffer sb = new StringBuffer();
+    		sb.append(username).append(regex1);
+    		for (int i = 0; i < roles.size(); i++) {
+				if(i == roles.size()-1) {
+					sb.append(roles.get(i));
+				}else {
+					sb.append(roles.get(i)).append(regex2);
+				}
+			}
+    		return sb.toString();
+    		
+    	}catch(Exception e) {
+    		return null;
+    	}
+    	
+    	
+    }
 
+    private static List<String> extactRoleFromToken(String role, String regex2){
+    	try {
+    		List<String> roles = null;
+    		if(role.contains(regex2)) {
+    			String[] arrayRole = role.split(regex2);
+    			roles = Arrays.asList(arrayRole);
+        		return roles;
+    		}else {
+    			roles = Arrays.asList(role);
+    			System.out.println("masuk sini");
+    			return roles;
+    		}
+    		
+    		
+    	}catch(Exception e) {
+    		System.out.println(e.getMessage());
+    		return null;
+    		
+    	}
+    	
+    	
+    }
 
+    public static Map<String,Object> extractUserNameAndRoleFromBodyToken(String bodyToken, String regex1, String regex2){
+    	Map<String,Object> datas = new HashMap<>();
+    	try {
+    		String[] array1 = bodyToken.split(regex1);
+    		datas.put("username", array1[0]);
+    		List<String> roles = extactRoleFromToken(array1[1], regex2);
+    		datas.put("roles", roles);
+    		return datas;
+    	}catch(Exception e) {
+    		return datas;
+    	}
+    	
+    	
+    	
+    }
+    
 }
