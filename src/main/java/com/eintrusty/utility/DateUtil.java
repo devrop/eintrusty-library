@@ -3,6 +3,7 @@ package com.eintrusty.utility;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -26,5 +27,15 @@ public class DateUtil {
 	public static Date getNow() {
 		return cal.getTime();
 
+	}
+	
+	public static String getFormatFromLocalDate(String format,LocalDateTime localDateTime) {
+		try {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
+        return localDateTime.format(formatter);
+		}catch(Exception e) {
+			return null;
+		}
 	}
 }
