@@ -29,7 +29,7 @@ public class DateUtil {
 
 	}
 	
-	public static String getFormatFromLocalDate(String format,LocalDateTime localDateTime) {
+	public static String getStringFormatFromLocalDate(String format,LocalDateTime localDateTime) {
 		try {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
 
